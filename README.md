@@ -1,2 +1,1 @@
 Power Dialer
-Developer
