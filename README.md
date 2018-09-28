@@ -15,12 +15,6 @@
 ## Running the tests
 
 
-### Break down into end to end tests
-
-
-### And coding style tests
-
-
 ## Deployment
 
 
@@ -28,11 +22,11 @@
 
 ### Front-end
 
-We used React.js and Webpack for Front-end development.
+- We used React.js and Webpack for Front-end development.
 
 ### Back-end
 
-We used Python Flask for Back-end development.
+- We used Python Flask for Back-end development.
 
 ## Contributing
 
