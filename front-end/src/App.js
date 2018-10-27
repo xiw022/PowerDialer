@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Table from './containers/Table/Table.js'
+import Uploader from './containers/Uploader/Uploader.js'
 import './App.css';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
           <h1 className="App-title">Power Dialer</h1>
         </header>
         <p className="App-intro">
+          <Uploader/>
           <Table/>
         </p>
       </div>
