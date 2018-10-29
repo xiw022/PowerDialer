@@ -12,8 +12,8 @@
 ### Installing
 - $ npm install --save react react-dom 
 - $ npm install --save react-bootstrap
-$ npm install react-table
-$ npm install react-upload-file -S
+- $ npm install react-table
+- $ npm install react-upload-file -S
 
 
 ## Running the tests
