@@ -7,7 +7,7 @@
 ### Prerequisites
 
 - NodeJs: [https://nodejs.org](https://nodejs.org) Please go to the website and download the latest version and install.
-- ReactJs: [https://reactjs.org](https://reactjs.org) You don't need to go to the website but follow the front-end ReactJs readme to setup your environment.
+- ReactJs: [https://reactjs.org](https://reactjs.org) Please go to the website and download the latest version and install.
 
 ### Installing
 - $ npm install --save react react-dom 
