@@ -10,6 +10,10 @@
 - ReactJs: [https://reactjs.org](https://reactjs.org) You don't need to go to the website but follow the front-end ReactJs readme to setup your environment.
 
 ### Installing
+- $ npm install --save react react-dom 
+- $ npm install --save react-bootstrap
+- $ npm install react-table
+- $ npm install react-upload-file -S
 
 
 ## Running the tests
