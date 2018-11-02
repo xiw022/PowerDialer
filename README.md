@@ -17,7 +17,7 @@
 
 
 ## Running the tests
-
+- Please run $ npm start in front-end directory
 
 ## Deployment
 
