@@ -14,6 +14,7 @@
 - $ npm install --save react-bootstrap
 - $ npm install react-table
 - $ npm install react-upload-file -S
+- $ npm install react-file-reader --save
 
 
 ## Running the tests
