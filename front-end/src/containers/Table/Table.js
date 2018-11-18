@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import {firstName} from '../../components/Button/ChooseButton.js'
 
 class Table extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class Table extends Component {
   }
   render () {
     const data = [{
+      name: firstName[8]
+    }]
+    /*const data = [{
         name: 'Tanner Linsley',
         age: 26,
         friend: {
@@ -32,7 +36,9 @@ class Table extends Component {
         createdAt:'2018-09-04 15:00:39',
         updatedAt:'2018-09-04 15:58:56',
         deletedAt:null,
-      }]
+      },{
+        name: "FFFEFE"
+      }]*/
 
       const columns = [{
         Header: 'Name',
