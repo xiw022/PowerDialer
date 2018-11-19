@@ -76,6 +76,44 @@ class DB(object):
         else:
             return True
 
+    def get_patient_data(self, num_list):
+        """随机获取未标注的样本"""
+        sql = """SELECT *
+            FROM patientnew
+            WHERE id not in (select id from callnew)
+            ORDER BY id LIMIT %d""" % (num_list)
+
+        rows = db.query(sql)
+        if rows is None:
+            return None
+
+        patients = []
+        for row in rows:
+            patient = {}
+            
+            id = row[0]
+            firstname = row[1]
+            lastname = row[2]
+            dob = row[3]
+            phone = row[4]
+            primary_payer = row[5]
+            medicare= row[6]
+            hbac= row[7]
+            timezone = row[8]
+
+            patient['id'] = id
+            patient['firstname'] = firstname
+            patient['lastname'] = lastname
+            patient['dob'] = dob
+            patient['phone'] = phone
+            patient['primary_payer'] = primary_payer
+            patient['medicare'] = medicare
+            patient['hba1c'] = hbac
+            patient['timezone'] = timezone
+            patients.append(patient)
+        return patients
+
+
     def close(self):
         self.conn.close()
 
