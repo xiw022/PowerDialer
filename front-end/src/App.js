@@ -4,6 +4,7 @@ import logo from './logo.png';
 import Uploader from './containers/Uploader/Uploader.js'
 import Account from './containers/Account/Account.js'
 import './App.css';
+import Table from './containers/Table/Table.js'
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
         </header>
         <p className="App-intro">
           <Uploader/>
+          <Table/>
         </p>
       </div>
     );

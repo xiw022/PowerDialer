@@ -1,63 +1,37 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import $ from 'jquery';
 //import {firstName} from '../../components/Button/ChooseButton.js'
 
 
-/**const rawData = makeData();
-
-const requestData = (pageSize, page, sorted, filtered) => {
-  return new Promise((resolve, reject) => {
-    // You can retrieve your data however you want, in this case, we will just use some local data.
-    let filteredData = rawData;
-
-    // You can use the filters in your request, but you are responsible for applying them.
-    if (filtered.length) {
-      filteredData = filtered.reduce((filteredSoFar, nextFilter) => {
-        return filteredSoFar.filter(row => {
-          return (row[nextFilter.id] + "").includes(nextFilter.value);
-        });
-      }, filteredData);
-    }
-    // You can also use the sorting in your request, but again, you are responsible for applying it.
-    const sortedData = _.orderBy(
-      filteredData,
-      sorted.map(sort => {
-        return row => {
-          if (row[sort.id] === null || row[sort.id] === undefined) {
-            return -Infinity;
-          }
-          return typeof row[sort.id] === "string"
-            ? row[sort.id].toLowerCase()
-            : row[sort.id];
-        };
-      }),
-      sorted.map(d => (d.desc ? "desc" : "asc"))
-    );
-
-    // You must return an object containing the rows of the current page, and optionally the total pages number.
-    const res = {
-      rows: sortedData.slice(pageSize * page, pageSize * page + pageSize),
-      pages: Math.ceil(filteredData.length / pageSize)
-    };
-
-    // Here we'll simulate a server response with 500ms of delay.
-    setTimeout(() => resolve(res), 500);
-  });
-};
 
 class Table extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       data: [],
       pages: null,
       loading: true
-    };
-    this.fetchData = this.fetchData.bind(this);
+    }
   }
 
-
+  getPatientsHandler = () => {
+      // console.log('Was clicked!');
+      // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+      $.ajax({
+        type: 'POST',
+        url: "http://localhost:8080/get_patient_data",
+        dataType: 'jsonp',
+        contentType: 'application/json; charset=utf-8',
+        success: function(data) {
+         this.setState({data: data});
+       }.bind(this),
+        error: function(error) {
+          console.log(error)
+        }
+      })
+    }
   render() {
     /**const data = [{
       name: firstName[8]
@@ -136,36 +110,58 @@ class Table extends Component {
       }]*/
 
   //const {data} = this.state;
-  /**const { data, pages, loading } = this.state;
+  const { data, pages, loading } = this.state;
+  const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     return (
       <div>
+      <button
+            style={style}
+            onClick={() => this.getPatientsHandler()}>Get Patients</button>
         <ReactTable
           columns = {[{
-            Header: 'Name',
-            accessor: 'name' // String-based value accessors!
+            Header: 'First Name',
+            accessor: 'firstname' // String-based value accessors!
           }, {
-            Header: 'Age',
-            accessor: 'age',
+            Header: 'Last Name',
+            accessor: 'lastname'
+          }, {
+            Header: 'ID',
+            accessor: 'id',
             Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
           }, {
-            Header: 'Intervention',
-            accessor: 'intervention' // String-based value accessors!
+            Header: 'dob',
+            accessor: 'dob'
+          }, {
+            Header: 'Phone Number',
+            accessor: 'phone' // String-based value accessors!
           },{
-            Header: 'tz',
-            accessor: 'tz' // String-based value accessors!
+            Header: 'Primary_payer',
+            accessor: 'primary_payer' // String-based value accessors!
+          },{
+            Header: 'Medicare',
+            accessor: 'medicare' // String-based value accessors!
+          },{
+            Header: 'hba',
+            accessor: 'hba1c', // String-based value accessors!
+            Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+          },{
+            Header: 'Timezone',
+            accessor: 'timezone'
           }]}
           manual // Forces table not to paginate or sort automatically, so we can handle it server-side
           data={data}
           pages={pages} // Display the total number of pages
           loading={loading} // Display the loading overlay when we need it
-          onFetchData={this.fetchData} // Request new data when things change
           filterable
-          defaultPageSize={10}
+          defaultPageSize={20}
           className="-striped -highlight"
         />
-        <br />
-        <Tips />
-        <Logo />
       </div>
     );
   /**const columns = [{
@@ -191,7 +187,7 @@ class Table extends Component {
         />
     </div>
   )*/
-/**}
-};*/
+}
+};
 
-//export default Table;
+export default Table;
