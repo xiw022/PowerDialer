@@ -11,10 +11,10 @@
 
 ### Installing
 - $ npm install --save react react-dom 
-- $ npm install --save react-bootstrap
 - $ npm install react-table
 - $ npm install react-upload-file -S
 - $ npm install react-file-reader --save
+- $ npm install react-materialize
 
 
 ## Running the tests
