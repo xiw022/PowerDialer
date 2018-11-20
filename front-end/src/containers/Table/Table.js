@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import $ from 'jquery';
-import axios from 'axios';
 //import {firstName} from '../../components/Button/ChooseButton.js'
 
 
@@ -11,6 +10,7 @@ class Table extends Component {
     super(props);
     this.state = {
       datas: [],
+      called: [],
       pages: null,
       loading: true
     };
