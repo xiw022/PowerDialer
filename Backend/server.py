@@ -10,10 +10,12 @@ __doc__ = """web server
 import json
 
 from flask import Flask, request, send_from_directory, Response
+from flask_cors import CORS, cross_origin
 
 import service
 
 app = Flask(__name__)
+CORS(app)
 
 
 
@@ -37,6 +39,7 @@ def response_jsonp(data, callback):
 
 
 @app.route("/")
+@cross_origin()
 def api_index():
     """ 返回主页
     """
@@ -50,7 +53,7 @@ def api_index():
 #       print (result['place'])
 
 
-@app.route("/get_patient_data", methods=['POST'])
+@app.route("/get_patient_data", methods=['GET'])
 def api_get_patient_data():
     """  功能： 获取未标注数据
          地址： http://ip:port/get_unlabeled_data
@@ -71,11 +74,12 @@ def api_get_patient_data():
                 ]
             }
     """
+    print "Fuck World"
     callback = request.args.get('callback')
-    request_data = json.loads(request.data)
-    num_list = request_data['num_list']
+    #request_data = json.loads(request.data)
+    #num_list = request_data['num_list']
 
-    u, err = service_imp.get_patient_data(num_list)
+    u, err = service_imp.get_patient_data(20)
     msg = ''
     data = []
     if u is None:
@@ -85,6 +89,7 @@ def api_get_patient_data():
     result = dict()
     result['MSG'] = msg
     result['DATA'] = data
+    print data
     return response_jsonp(result, callback)
 
 

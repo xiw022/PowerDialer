@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo.png';
 //import Table from './containers/Table/Table.js'
 import Uploader from './containers/Uploader/Uploader.js'
+import Account from './containers/Account/Account.js'
 import './App.css';
+import Table from './containers/Table/Table.js'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo"/>
           <h1 className="App-title">Power Dialer</h1>
+          <Account/>
         </header>
         <p className="App-intro">
           <Uploader/>
+          <Table/>
         </p>
       </div>
     );
   }
-}
+};
+
 
 export default App;
