@@ -1,10 +1,28 @@
 .App {
-text-align: center;
+  text-align: center;
+}
+
+.col {
+    float: left;
+    width: 33.33%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .App-logo {
+  padding-top: 7px;
+  height: 60px;
+  max-width: 300px;
+}
 
-  height: 80px;
+.App-title {
+  font-family: "Dekko";
+  font-size: 34px;
+  color: #490084;
 }
 
 .App-header {

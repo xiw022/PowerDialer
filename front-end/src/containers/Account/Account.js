@@ -48,24 +48,24 @@ componentDidMount() {
 
 render() {
   return (
-    <div>
-    <div className="wrapper">
-      {this.state.user ?
-        <button onClick={this.logout}>Log Out</button>
-        :
-        <button onClick={this.login}>Log In</button>
-      }
-    </div>
-    {this.state.user ?
-    <div>
-      <div className='user-profile'>
-        <img src={this.state.user.photoURL} className="profile" alt="user_image"/>
+    <div className="logcol">
+      <div className="wrapper">
+        {this.state.user ?
+          <button onClick={this.logout}>Log Out</button>
+          :
+          <button onClick={this.login}>Login</button>
+        }
       </div>
-    </div>
-    :
-    <div className='wrapper'>
-      <p>Please log in first to see the patients list</p>
-    </div>
+      {this.state.user ?
+      <div>
+        <div className='user-profile'>
+          <img src={this.state.user.photoURL} className="profile" alt="user_image"/>
+        </div>
+      </div>
+      :
+      <div className='wrapper1'>
+        <p>Please log in first to see the patients list</p>
+      </div>
   }
   </div>
   );
