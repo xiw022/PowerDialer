@@ -15,7 +15,7 @@
 - $ npm install react-table
 - $ npm install react-upload-file -S
 - $ npm install --save firebase
-
+- $ npm install react-materialize
 
 ## Running the tests
 - Please run $ npm start in front-end directory
