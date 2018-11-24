@@ -8,17 +8,19 @@
 
 - NodeJs: [https://nodejs.org](https://nodejs.org) Please go to the website and download the latest version and install.
 - ReactJs: [https://reactjs.org](https://reactjs.org) Please go to the website and download the latest version and install.
+- Python Version: 2.7
+- mySQL & MySQLdb
 
 ### Installing
 - $ npm install --save react react-dom 
-- $ npm install --save react-bootstrap
 - $ npm install react-table
 - $ npm install react-upload-file -S
 - $ npm install --save firebase
 - $ npm install react-materialize
 
 ## Running the tests
-- Please run $ npm start in front-end directory
+- font-end : Please run $ npm start in front-end directory
+- back-end : Please run $ python server.py in Backend directory
 
 ## Deployment
 
@@ -27,7 +29,7 @@
 
 ### Front-end
 
-- We used React.js and Webpack for Front-end development.
+- We used React.js for Front-end development.
 
 ### Back-end
 
