@@ -10,10 +10,14 @@ __doc__ = """web server
 import json
 
 from flask import Flask, request, send_from_directory, Response
+from flask_cors import CORS, cross_origin
 
 import service
 
 app = Flask(__name__)
+CORS(app)
+
+
 
 
 
@@ -35,10 +39,60 @@ def response_jsonp(data, callback):
 
 
 @app.route("/")
+@cross_origin()
 def api_index():
     """ 返回主页
     """
     return send_from_directory('./view/','index.html')
+
+
+# @app.route('/result',methods = ['POST', 'GET'])
+# def result():
+#    if request.method == 'GET':
+#       result = request.form
+#       print (result['place'])
+
+
+@app.route("/get_patient_data", methods=['GET'])
+def api_get_patient_data():
+    """  功能： 获取未标注数据
+         地址： http://ip:port/get_unlabeled_data
+         方式： POST
+         参数：
+             {
+                "task_name":"20170903keyword",  // 任务名称
+                "rtx":"richardsun",  // rtx
+                "num_samples": 2  // 需要的待标注数据数量
+             }
+         返回：
+             {
+                "ret":0,  // 返回码, 0表示正常调用，1表示异常，异常信息在msg给出
+                "msg":"",  // 返回信息
+                "data":[
+                    {"text":"10新网游推荐","candidate_tags":[{"predicted_tag":"网游推荐","predicted_weight":0.4},{"predicted_tag":"10新","predicted_weight":0.3}],"id":1},
+                    {"text":"10暑假pk网络游戏排行榜","candidate_tags":[{"predicted_tag":"10暑假pk网络游","predicted_weight":0.455},{"predicted_tag":"网络游戏","predicted_weight":0.33}],"id":3}
+                ]
+            }
+    """
+    print "Fuck World"
+    callback = request.args.get('callback')
+    #request_data = json.loads(request.data)
+    #num_list = request_data['num_list']
+
+    u, err = service_imp.get_patient_data(20)
+    msg = ''
+    data = []
+    if u is None:
+        msg = err
+    else:
+        data = u
+    result = dict()
+    result['MSG'] = msg
+    result['DATA'] = data
+    print data
+    return response_jsonp(result, callback)
+
+
 
 '''
 @app.route("/get_task_confs", methods=['POST'])

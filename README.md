@@ -15,9 +15,8 @@
 - $ npm install --save react react-dom 
 - $ npm install react-table
 - $ npm install react-upload-file -S
-- $ npm install react-file-reader --save
+- $ npm install --save firebase
 - $ npm install react-materialize
-
 
 ## Running the tests
 - font-end : Please run $ npm start in front-end directory

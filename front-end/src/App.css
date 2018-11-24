@@ -2,22 +2,46 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 70px;
-  padding: 20px;
-  color: white;
+.col {
+    float: left;
+    width: 33.33%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.App-logo {
+  padding-top: 7px;
+  height: 60px;
+  max-width: 300px;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-family: "Dekko";
+  font-size: 34px;
+  color: #490084;
 }
 
-.App-intro {
-  font-size: large;
+.App-header {
+  background-color: #fff;
+    border-bottom: 2px solid #e9e9e9;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    align-items: flex-start
+}
+
+.App-link {
+  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -1,0 +1,19 @@
+.logcol {
+    float: right;
+    width: 33.33%;
+    padding-top: 25px;
+}
+
+.wrapper button {
+	width: 80px;
+	height: 30px;
+	border-radius: 8px;
+	font-size: 15px;
+	color: #490084;
+}
+
+.wrapper1 {
+	font-family: 'Dekko';
+	font-size: 18px;
+	color: #490084;
+}

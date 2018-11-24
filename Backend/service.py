@@ -26,6 +26,23 @@ class Service(object):
         # self._cache()
 
 
+    def get_patient_data(self, num_list):
+        """
+        return patient list from the database
+        """
+        
+
+       
+   
+        
+        patients = db.get_patient_data(num_list)
+        
+        if patients is None:
+            return None, 'db failed.'
+
+        return patients, ''
+
+
     # def _cache(self):
     #     """载入所有taxonomy，cache起来，加速后续请求"""
     #     for task_conf in g_task_conf_manager.task_confs.task_confs:
