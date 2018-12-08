@@ -17,6 +17,7 @@
 - $ npm install react-upload-file -S
 - $ npm install --save firebase
 - $ npm install react-materialize
+- $ npm install react-popup
 
 ## Running the tests
 - font-end : Please run $ npm start in front-end directory
