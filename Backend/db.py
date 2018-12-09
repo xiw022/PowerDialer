@@ -53,8 +53,8 @@ class DB(object):
             rows = cursor.fetchall()
         except:
             self._reconnect()
-            logger.error('%s' % traceback.format_exc())
-            logger.error('sql: %s', sql)
+            
+            print "query failed"
             return None
         else:
             return rows
@@ -70,8 +70,7 @@ class DB(object):
         except:
             conn.rollback()
             self._reconnect()
-            logger.error('%s' % traceback.format_exc())
-            logger.error('sql: %s', sql)
+            print "query failed"
             return False
         else:
             return True
@@ -80,8 +79,8 @@ class DB(object):
         """随机获取未标注的样本"""
         sql = """SELECT *
             FROM patientnew
-            WHERE id not in (select id from callnew)
-            ORDER BY id LIMIT %d""" % (num_list)
+            WHERE id not in (select id from callnew where outcome='ENROLLED' or outcome='REJECTED')
+            ORDER BY RAND() LIMIT %d""" % (num_list)
 
         rows = db.query(sql)
         if rows is None:
@@ -91,7 +90,7 @@ class DB(object):
         for row in rows:
             patient = {}
             
-            id = row[0]
+            ID = row[0]
             firstname = row[1]
             lastname = row[2]
             dob = row[3]
@@ -101,7 +100,7 @@ class DB(object):
             hbac= row[7]
             timezone = row[8]
 
-            patient['id'] = id
+            patient['id'] = ID
             patient['firstname'] = firstname
             patient['lastname'] = lastname
             patient['dob'] = dob
@@ -113,6 +112,119 @@ class DB(object):
             patients.append(patient)
         return patients
 
+
+    def get_patient_byid(self, ID):
+        """随机获取未标注的样本"""
+        sql = """SELECT *
+            FROM patientnew
+            WHERE id = %s """ % (ID)
+
+        rows = db.query(sql)
+        if rows is None:
+            return None
+
+        patient = {}
+
+        row=rows[0]
+
+        ID = row[0]
+        firstname = row[1]
+        lastname = row[2]
+        dob = row[3]
+        phone = row[4]
+        primary_payer = row[5]
+        medicare= row[6]
+        hbac= row[7]
+        timezone = row[8]
+
+        patient['id'] = ID
+        patient['firstname'] = firstname
+        patient['lastname'] = lastname
+        patient['dob'] = dob
+        patient['phone'] = phone
+        patient['primary_payer'] = primary_payer
+        patient['medicare'] = medicare
+        patient['hba1c'] = hbac
+        patient['timezone'] = timezone
+
+        return patient
+
+
+
+
+    def insert_patientdata(self, line):
+
+        datalist=line.split(',')
+        
+
+        ID, firstname, lastname, dob, phone, primary_payer, medicare, hbac, timezone = datalist
+
+        hbac1=float(hbac)
+
+        
+
+    
+
+        sql = """INSERT INTO patientnew (id, firstname, lastname, dob, phone, primary_payer, medicare, hba1c, timezone) VALUES %s"""
+        
+        
+        values = "('%s', '%s', '%s', '%s', '%s', '%s', '%s', %f, '%s')" % (ID.strip(), firstname, lastname, dob, phone, primary_payer, medicare, hbac1, timezone)
+        
+        sql = sql % values
+
+
+
+        return self.write(sql)
+
+
+
+
+
+    def insert_calldata(self, ID, start_time, end_time, outcome):
+
+        
+        patient=self.get_patient_byid(ID)
+
+        if outcome=="ENROLLED":
+            enrolledat=end_time
+            rejectedat=''
+        elif outcome=="REJECTED":
+            enrolledat=''
+            rejectedat=end_time
+        elif outcome=="VOICEMAIL":
+            enrolledat=''
+            rejectedat=''
+
+
+        calledat=start_time
+
+        ID = patient['id'] 
+        firstname = patient['firstname'] 
+        lastname = patient['lastname'] 
+        dob = patient['dob'] 
+        phone = patient['phone'] 
+        primary_payer = patient['primary_payer'] 
+        medicare = patient['medicare'] 
+        hbac = patient['hba1c'] 
+        timezone = patient['timezone']
+
+
+
+
+        sql = """INSERT INTO callnew (id, firstname, lastname, outcome, enrolledat, rejectedat, calledat, dob, phone, primary_payer, medicare, hba1c, timezone) VALUES %s"""
+
+
+        
+        
+        values = "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %f, '%s')" % (ID, firstname, lastname, outcome, enrolledat, rejectedat, calledat, dob, phone, primary_payer, medicare, hbac, timezone)
+        
+        sql = sql % values
+
+        
+
+        return self.write(sql)
+
+        
 
     def close(self):
         self.conn.close()

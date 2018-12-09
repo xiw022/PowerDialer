@@ -1,0 +1,4 @@
+ID,First Name,Last Name,Patient Birth Date,Patient Phone,Primary Payer Name,Medicare Patient,HbA1c Value (numeric),Timezone
+813,Eric,NAME,08/11/1968,636-293-0000,BLUE CROSS BLUE SHIELD,NO,10.4,US/Central
+814,Bruce,NAME,09/19/1959,573-201-0000,MEDICARE,YES,9.8,US/Central
+815,Freddy,NAME,07/02/1949,636-578-0000,MEDICARE,YES,10.8,US/Central

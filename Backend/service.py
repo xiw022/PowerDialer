@@ -43,6 +43,24 @@ class Service(object):
         return patients, ''
 
 
+
+
+    def load_newpatient_data(self, line):
+            
+            if not db.insert_patientdata(line):
+                
+                return False, 'insert_patientdata failed.'
+            return True, ''
+
+
+
+    def load_calledpatient_data(self, ID, start_time, end_time, outcome):
+            
+            if not db.insert_calldata(ID, start_time, end_time, outcome):
+                
+                return False, 'insert_calldata failed.'
+            return True, ''
+
     # def _cache(self):
     #     """载入所有taxonomy，cache起来，加速后续请求"""
     #     for task_conf in g_task_conf_manager.task_confs.task_confs:
@@ -66,7 +84,7 @@ class Service(object):
 
     #         self.task_confs.append(task_conf_dict)
 
-    '''
+'''
     def get_task_confs(self):
         return self.task_confs
 
@@ -156,7 +174,7 @@ class Service(object):
             logger.error("insert_artificial_tag failed.")
             return False, 'insert_artificial_tag failed.'
         return True, ''
-    '''
+'''
 
 
 if __name__ == '__main__':

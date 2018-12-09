@@ -1,0 +1,41 @@
+
+
+    .success {
+        background-color: #27ae60;
+        border-color: #27ae60;
+        color: #fff;
+    }
+
+    .danger {
+        background-color: #c5545c;
+        border-color: #c5545c;
+        color: #fff;
+    }
+
+    .m {
+        background-color: #c5545c;
+        border-color: #c5545c;
+        color: #fff;
+    }
+    .mm-popup__close{
+        display: none;
+    }
+    .mm-popup__box__body {
+        margin-top: 6px;
+        color: red;
+    }
+    .mm-popup__btn.mm-popup__btn--ok{
+        width: 40px;
+        height: 20px;
+        font-size: 13px;
+        padding-bottom: 5px;
+        margin-top: 5px;
+        margin-bottom: 3px;
+    }
+    .mm-popup__btn.null{
+        /*width:50px;*/
+        margin: 13px;
+        height: 20px;
+        font-size: 12px;
+    }
+    

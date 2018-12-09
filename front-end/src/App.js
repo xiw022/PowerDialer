@@ -6,14 +6,21 @@ import Account from './containers/Account/Account.js'
 import './App.css';
 import Table from './containers/Table/Table.js'
 
+
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Power Dialer</h1>
-          <Account/>
+          <div className="row">
+            <div className="col">
+              <img src={logo} className="App-logo" alt="logo"/>
+            </div>
+            <div className="col">
+              <h1 className="App-title">Power Dialer</h1>
+            </div>
+              <Account/>
+          </div>
         </header>
         <p className="App-intro">
           <Uploader/>

@@ -16,8 +16,9 @@ import service
 
 account_sid = 'AC95fd277d38fbfe2cdbe6b35f1f7996a6'
 auth_token = '743fd6872ffb78d697c7ee130462d956'
-
-
+call_id = ""
+start_time = ""
+end_time = ""
 
 app = Flask(__name__)
 CORS(app)
@@ -27,7 +28,7 @@ CORS(app)
 
 
 def response_jsonp(data, callback):
-    
+
     js = json.dumps(data, ensure_ascii=False).encode('utf8')
     if callback is not None:
         js = str(callback) + '(' + js + ')'
@@ -35,57 +36,46 @@ def response_jsonp(data, callback):
     return resp
 
 
-@app.route("/call_patient", methods=['GET']) 
+@app.route("/call_patient", methods=['GET'])
 def call():
-    number = request.args.get('phone')
-    print number
-    changenumber = number.replace("-","")
-    nn = '+1'+ changenumber
+    global call_id, start_time
+    #number = request.args.get('phone')
+    #changenumber = number.replace("-","")
+    #nn = '+1'+ changenumber
     client = Client(account_sid, auth_token)
     call = client.calls.create(
                        machine_detection='Enable',
                        url='http://demo.twilio.com/docs/voice.xml',
-                       to='+18596875431', 
-                        #placeholder number grab this from the number column in table
+                       to='+18586665289',  #placeholder number grab this from the number column in table
                        from_='+13143107942'    #purchased twilio number
 
                    )
-    print call.sid
-    return call.sid
-
-
-@app.route("/patient_stats", methods=['GET']) 
-def patient_stats():
-    client = Client(account_sid, auth_token)
     #sid = call()
-    ID = request.args.get('id')
-    callrec = client.calls("CA72f3475ac0260714e3ca172893e97a82").fetch()
+    call_id = call.sid
+    callrec = client.calls(call.sid).fetch()
     #print(callrec.duration)
-    voicemail = ""
     duration = callrec.duration
     if duration is None:
         duration = str(0)
     start_time = callrec.start_time.strftime("%Y-%m-%d %H:%M:%S")
+    return "Called!"
+
+
+@app.route("/patient_stats", methods=['GET'])
+def patient_stats():
+    global end_time
+    p_id = request.args.get("id")
+    outcome = request.args.get('result')
+    client = Client(account_sid, auth_token)
+    callrec = client.calls(call_id).fetch()
     end_time = callrec.end_time.strftime("%Y-%m-%d %H:%M:%S")
-    if callrec.answered_by == "machine":
-        voicemail = "voicemail"
-
-    if voicemail=="voicemail":
-        outcome=voicemail
-    else:
-        outcome="ENROLLED"
-
-
-
-    service_imp.load_calledpatient_data(ID, start_time, end_time, outcome)
-
-    
+    service_imp.load_calledpatient_data(p_id, start_time, end_time, outcome)
     return "Sent stats!"
 
 @app.route("/")
 @cross_origin()
 def api_index():
-    
+
     return send_from_directory('./view/','index.html')
 
 
@@ -117,7 +107,7 @@ def api_get_patient_data():
                 ]
             }
     """
-    
+
     callback = request.args.get('callback')
     #request_data = json.loads(request.data)
     #num_list = request_data['num_list']
@@ -132,18 +122,38 @@ def api_get_patient_data():
     result = dict()
     result['MSG'] = msg
     result['DATA'] = data
-    
+
     return response_jsonp(result, callback)
 
 
 
 @app.route("/load_newpatient_data", methods=['GET'])
 def api_load_calledpatient_data():
-    
+
     #callback = request.args.get('callback')
     #request_data = json.loads(request.data)
-    print request.args.get('d')
+    file = request.args.get("file")
+
+    lines = file.split("\r")
+
+    Lines=lines[1:]
+
+    for line in Lines:
+        
+
+
+        service_imp.load_newpatient_data(line)
+
+
+    return "Correct"
+        
     
+    
+    
+    
+
+
+
 
     # ret = 0
     # msg = ''
@@ -274,7 +284,7 @@ def api_file(path):
     return send_from_directory('./view/', path)
 
 if __name__ == '__main__':
-    print 'hello labelme'
+    print 'hello Andy'
     global service_imp
     service_imp = service.Service()
     app.run(host='0.0.0.0', port=8081, debug=True, use_reloader=False)
