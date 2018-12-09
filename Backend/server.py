@@ -46,8 +46,8 @@ def call():
     call = client.calls.create(
                        machine_detection='Enable',
                        url='http://demo.twilio.com/docs/voice.xml',
-                       to='+18586665289',  #placeholder number grab this from the number column in table
-                       from_='+13143107942'    #purchased twilio number
+                       to=nn,  #placeholder number grab this from the number column in table
+                       from_='+13143107942'    #purchased twilio number... Change this to Epharmix's
 
                    )
     #sid = call()
