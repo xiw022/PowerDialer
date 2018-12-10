@@ -11,11 +11,11 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datas: [],
+      datas: [],   //setting data to empty at first
       called: [],
       pages: null,
       loading: true,
-      callButton: 'Call',
+      callButton: 'Call',  //value of call button in the HTML
       result: ''
     };
   }
@@ -24,11 +24,11 @@ class Table extends Component {
   getPatientsHandler = () => {
       $.ajax({
         type: 'POST',
-        url: "http://0.0.0.0:8081/get_patient_data",
+        url: "http://0.0.0.0:8081/get_patient_data",  //mirroring python function, ajax call
         dataType: 'jsonp',
         contentType: 'application/json; charset=utf-8',
         success: function(data) {
-         this.setState({datas: data['DATA']});
+         this.setState({datas: data['DATA']});  //grabs data and fills the rows with the ML trained data. 
        }.bind(this),
         error: function(error) {
           console.log(error)
@@ -72,12 +72,12 @@ class Table extends Component {
 
   handleButtonClick = () => {
   }
-
+  //function handles what to do when pop up comes up with whether or not they accpeted or rejected. 
   popUpHandler = (i) => {
     Popup.create({
    
     content: 'Please wait until call is completed before choosing response',
-    buttons: {
+    buttons: {  //creating three buttons to accept, reject, or voicemail
         right: [{
             text: 'Enrolled',
             class: 'success',
@@ -88,7 +88,7 @@ class Table extends Component {
           url: "http://0.0.0.0:8081/patient_stats",
           dataType: 'jsonp',
           contentType: 'application/json; charset=utf-8',
-          data: {"id": i, "result": 'ENROLLED'}
+          data: {"id": i, "result": 'ENROLLED'}  //sending back the request data as a dict with the id as the id in the table
         })
                 Popup.alert('Result of the call is saved successfully!');
                 /** Close this popup. Close will always close the current visible one, if one is visible */
@@ -104,7 +104,7 @@ class Table extends Component {
           url: "http://0.0.0.0:8081/patient_stats",
           dataType: 'jsonp',
           contentType: 'application/json; charset=utf-8',
-          data: {"id": i, "result": 'REJECTED'}
+          data: {"id": i, "result": 'REJECTED'}  //sending back the request data as a dict with the id as the id in the table
         })
                 Popup.alert('Result of the call is saved successfully!');
                 /** Close this popup. Close will always close the current visible one, if one is visible */
@@ -120,7 +120,7 @@ class Table extends Component {
           url: "http://0.0.0.0:8081/patient_stats",
           dataType: 'jsonp',
           contentType: 'application/json; charset=utf-8',
-          data: {"id": i, "result": 'VOICEMAIL'}
+          data: {"id": i, "result": 'VOICEMAIL'}  //sending back the request data as a dict with the id as the id in the table
         })
                 Popup.alert('Result of the call is saved successfully!');
                 /** Close this popup. Close will always close the current visible one, if one is visible */
@@ -136,21 +136,21 @@ class Table extends Component {
       onClick: e=> {
         if (document.getElementById("number").value == "Call"){
           //Popup.alert("Calling " + rowInfo.original.firstname + " " + rowInfo.original.lastname)
-          this.popUpHandler(rowInfo.original.id)
+          this.popUpHandler(rowInfo.original.id)  //takes in the persons id as an argument
           const { datas, pages, loading } = this.state;
         $.ajax({
           type: 'POST',
           url: "http://0.0.0.0:8081/call_patient",
           dataType: 'jsonp',
           contentType: 'application/json; charset=utf-8',
-          data: {"phone": rowInfo.original.phone},
+          data: {"phone": rowInfo.original.phone},  //sends back phone number to know which person and # to call
           success: function(data) {
            console.log("called")
          }.bind(this),
           error: function(error) {
             console.log(rowInfo.original.id)
             var a = [...datas]
-            a.splice(rowInfo.index, 1)
+            a.splice(rowInfo.index, 1)  //after agent presses call button, removes row from the data table
             this.setState({datas: a})
           }.bind(this),
           async: false
@@ -221,7 +221,7 @@ class Table extends Component {
             Cell: ({value}) => <input type="button" id='number' value="Call" onClick={(e) => this.handleButtonClick(e, value)} ></input>
           }]}
           manual// Forces table not to paginate or sort automatically, so we can handle it server-side
-          getTrProps={this.getTrProps}
+          getTrProps={this.getTrProps}  //assigns props to function. 
         />
       </div>
     );
