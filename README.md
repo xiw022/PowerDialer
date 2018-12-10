@@ -14,6 +14,7 @@ Most up-to-date version is in "test" branch
 - $ npm install --save react-bootstrap
 - $ npm install react-table
 - $ npm install react-upload-file -S
+- $ npm install react-popup
 
 
 ## Running the tests
