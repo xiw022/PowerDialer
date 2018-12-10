@@ -74,7 +74,6 @@ def api_get_patient_data():
                 ]
             }
     """
-    print "Fuck World"
     callback = request.args.get('callback')
     #request_data = json.loads(request.data)
     #num_list = request_data['num_list']
