@@ -17,20 +17,19 @@ class Uploader extends Component {
     var fd = new FormData();
     reader.onload = function(e) {
     //
-      console.log(reader.result)
-      test = reader.result
+      file_result = reader.result  //gets csv data from upload and stores in a variable
       $.ajax({
       type: 'POST',
       url: "http://0.0.0.0:8081/load_newpatient_data",
       //dataType: 'jsonp',
       dataType: 'jsonp',
       contentType: 'application/json; charset=utf-8',
-      data: {"file": test},
+      data: {"file": file_result},
       success: function(data) {
        alert("");
      }.bind(this),
       error: function(error) {
-        console.log("e")
+        console.log("error")
       }
     })
     }
