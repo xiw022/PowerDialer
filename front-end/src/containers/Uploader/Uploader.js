@@ -5,7 +5,7 @@ import ChooseButton from '../../components/Button/ChooseButton.js'
 import ReactFileReader from 'react-file-reader';
 import $ from 'jquery';
 
-var test=""
+var file_result=""
 class Uploader extends Component {
   constructor(props) {
     super(props);
