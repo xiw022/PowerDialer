@@ -9,6 +9,9 @@ import traceback
 
 import MySQLdb
 
+import numpy as np
+
+
 
 class DB(object):
     def __init__(self, host, port, user, passwd, db):
@@ -82,6 +85,10 @@ class DB(object):
         if rows is None:
             return None
 
+        from sklearn.externals import joblib
+    
+        clf=joblib.load('/Users/eric/Desktop/PowerDialer/Backend/MNB.pkl')
+
         patients = []
         for row in rows:
             patient = {}
@@ -105,7 +112,35 @@ class DB(object):
             patient['medicare'] = medicare
             patient['hba1c'] = hbac
             patient['timezone'] = timezone
-            patients.append(patient)
+
+            byear = int(dob[-4:])
+            age=2018-byear
+
+            if medicare=='YES':
+                medi=1
+            else:
+                medi=0
+
+            payerdict={'UNITED HEALTHCARE MEDICARE':1,'ESSENCE HEALTHCARE':2,'HUMANA MEDICARE':3,'HUMANA':4,'MEDICARE':5,
+                                             'BLUE CROSS BLUE SHIELD':6,'TRICARE':7,'AETNA MEDICARE':8,'AARP SUPPLMENT INSURANCE':9,
+                                             'UNITED HEALTHCARE':10,'MUTUAL OF OMAHA':11,'CIGNA':12,'AETNA':13,'BLUE CROSS BLUE SHIELD MEDICARE':14,
+                                             'COMMERCIAL GENERIC':15,'AMERICAN CONTINENTAL INS CO':16,'UNITED AMERICAN':17,'MO HEALTHNET DIVISION':18,
+                                             'HEALTHLINK':19}
+
+            payer=payerdict[primary_payer]
+
+
+            X=np.array([[age, hbac, medi, payer]])
+
+            Y=clf.predict(X)
+
+            if Y[0]==1:
+                patients.append(patient)
+
+                print 1
+            else:
+                print Y[0]
+            
         return patients
 
 
@@ -147,7 +182,7 @@ class DB(object):
 
 
 
-#function inserts patient data from data into patientnew db
+
     def insert_patientdata(self, line):
 
         datalist=line.split(',')
@@ -175,7 +210,7 @@ class DB(object):
 
 
 
-#functions inserts call data after call is completed into callnew db
+
     def insert_calldata(self, ID, start_time, end_time, outcome):
 
         
@@ -203,6 +238,8 @@ class DB(object):
         medicare = patient['medicare'] 
         hbac = patient['hba1c'] 
         timezone = patient['timezone']
+
+
 
 
 
