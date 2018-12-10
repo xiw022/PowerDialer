@@ -14,8 +14,8 @@ from flask_cors import CORS, cross_origin
 import service
 
 
-account_sid = 'AC95fd277d38fbfe2cdbe6b35f1f7996a6'
-auth_token = '743fd6872ffb78d697c7ee130462d956'
+account_sid = 'AC95fd277d38fbfe2cdbe6b35f1f7996a6'  #ANDY: change to your actual one
+auth_token = '743fd6872ffb78d697c7ee130462d956'     #ANDY: change to your actual one
 call_id = ""
 start_time = ""
 end_time = ""
@@ -41,8 +41,9 @@ def call():
     global call_id, start_time
     number = request.args.get('phone')
     changenumber = number.replace("-","")
-    nn = '+1'+ changenumber
-    client = Client(account_sid, auth_token)
+    nn = '+1'+ changenumber  #grabbing reformatted number from front-end
+    client = Client(account_sid, auth_token)  #creating a client object
+    #starting up the call
     call = client.calls.create(
                        machine_detection='Enable',
                        url='http://demo.twilio.com/docs/voice.xml',
@@ -51,24 +52,24 @@ def call():
 
                    )
     #sid = call()
-    call_id = call.sid
-    callrec = client.calls(call.sid).fetch()
+    call_id = call.sid #unique call id variable 
+    callrec = client.calls(call.sid).fetch() #fetching that call from call id
     #print(callrec.duration)
     duration = callrec.duration
     if duration is None:
         duration = str(0)
-    start_time = callrec.start_time.strftime("%Y-%m-%d %H:%M:%S")
+    start_time = callrec.start_time.strftime("%Y-%m-%d %H:%M:%S")  #getting the start time from call
     return "Called!"
 
 
 @app.route("/patient_stats", methods=['GET'])
 def patient_stats():
     global end_time
-    p_id = request.args.get("id")
-    outcome = request.args.get('result')
+    p_id = request.args.get("id") #patient id
+    outcome = request.args.get('result')  #result: ENROLLED, REJECTED, VOICEMAIL
     client = Client(account_sid, auth_token)
     callrec = client.calls(call_id).fetch()
-    end_time = callrec.end_time.strftime("%Y-%m-%d %H:%M:%S")
+    end_time = callrec.end_time.strftime("%Y-%m-%d %H:%M:%S")  #getting the end time from call
     service_imp.load_calledpatient_data(p_id, start_time, end_time, outcome)
     return "Sent stats!"
 
