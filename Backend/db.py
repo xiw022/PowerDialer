@@ -73,7 +73,8 @@ class DB(object):
             return False
         else:
             return True
-
+        
+    #grabbing the training results we get 
     def get_patient_data(self, num_list):
         
         sql = """SELECT *
@@ -87,7 +88,7 @@ class DB(object):
 
         from sklearn.externals import joblib
     
-        clf=joblib.load('/Users/eric/Desktop/PowerDialer/Backend/MNB.pkl')
+        clf=joblib.load('../PowerDialer/Backend/MNB.pkl')  #path to classifier, CHANGE to local path on computer. 
 
         patients = []
         for row in rows:
@@ -182,7 +183,7 @@ class DB(object):
 
 
 
-
+    #function to insert data into db
     def insert_patientdata(self, line):
 
         datalist=line.split(',')
@@ -210,7 +211,7 @@ class DB(object):
 
 
 
-
+    #function to get the call data after cal and insert it into the db
     def insert_calldata(self, ID, start_time, end_time, outcome):
 
         
