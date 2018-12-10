@@ -44,6 +44,9 @@ class Service(object):
 
 
     def load_newpatient_data(self, line):
+        """
+        returns a boolean of whether or not patient data was inserted
+        """
             
             if not db.insert_patientdata(line):
                 
@@ -53,6 +56,9 @@ class Service(object):
 
 
     def load_calledpatient_data(self, ID, start_time, end_time, outcome):
+        """
+        returns a boolean of whether or not data after the call was inserted
+        """
             
             if not db.insert_calldata(ID, start_time, end_time, outcome):
                 
