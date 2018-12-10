@@ -10,6 +10,7 @@ Most up-to-date version is in "test" branch
 - ReactJs: [https://reactjs.org](https://reactjs.org) Please go to the website and download the latest version and install.
 - Python Version: 2.7
 - mySQL & MySQLdb
+- Jupyter Notebook (for reference: http://jupyter.org/install)
 
 ### Installing
 - $ npm install --save react react-dom 
