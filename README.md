@@ -1,8 +1,8 @@
 # Power Dialer
-
+A web application that allows users to upload lists of patients and directly call out to enroll them
 
 ## Getting Started
-
+Most up-to-date version is in "test" branch. Please clone from such branch.
 
 ### Prerequisites
 
