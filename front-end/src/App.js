@@ -6,7 +6,8 @@ import Account from './containers/Account/Account.js'
 import './App.css';
 import Table from './containers/Table/Table.js'
 
-
+//Creating HTML skeleton or structure for the web app. 
+//Also, imports styling through our App.css file.
 class App extends Component {
   render() {
     return (
