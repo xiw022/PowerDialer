@@ -145,12 +145,10 @@ class Table extends Component {
           contentType: 'application/json; charset=utf-8',
           data: {"phone": rowInfo.original.phone},
           success: function(data) {
-           console.log(rowInfo.original.id)
-           console.log(rowInfo.original.phone)
+           console.log("called")
          }.bind(this),
           error: function(error) {
             console.log(rowInfo.original.id)
-            console.log(rowInfo.original.phone)
             var a = [...datas]
             a.splice(rowInfo.index, 1)
             this.setState({datas: a})
