@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase, { auth, provider } from '../../components/firebase/firebase.js';
 import './Account.css';
 
+//js file to handle firebase login functionality
 class Account extends Component {
   constructor() {
     super();
@@ -19,6 +20,7 @@ handleChange(e) {
   /* ... */
 }
 
+//login function changes state to user after successful login
 login() {
   auth.signInWithPopup(provider)
     .then((result) => {
@@ -29,6 +31,7 @@ login() {
     });
 }
 
+//logout function changes state to null after successful logout
 logout() {
   auth.signOut()
     .then(() => {
@@ -50,13 +53,13 @@ render() {
   return (
     <div className="logcol">
       <div className="wrapper">
-        {this.state.user ?
+        {this.state.user ?   //checking what the login state is and changing button
           <button onClick={this.logout}>Log Out</button>
           :
           <button onClick={this.login}>Login</button>
         }
       </div>
-      {this.state.user ?
+      {this.state.user ?   //if you are logged in show the user image below"
       <div>
         <div className='user-profile'>
           <img src={this.state.user.photoURL} className="profile" alt="user_image"/>
