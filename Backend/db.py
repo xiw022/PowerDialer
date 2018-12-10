@@ -10,8 +10,6 @@ import traceback
 import MySQLdb
 
 
-
-
 class DB(object):
     def __init__(self, host, port, user, passwd, db):
         self.host = host
@@ -149,7 +147,7 @@ class DB(object):
 
 
 
-
+#function inserts patient data from data into patientnew db
     def insert_patientdata(self, line):
 
         datalist=line.split(',')
@@ -177,7 +175,7 @@ class DB(object):
 
 
 
-
+#functions inserts call data after call is completed into callnew db
     def insert_calldata(self, ID, start_time, end_time, outcome):
 
         
