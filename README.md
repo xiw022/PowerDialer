@@ -16,7 +16,6 @@
 - $ npm install react-table
 - $ npm install react-upload-file -S
 - $ npm install --save firebase
-- $ npm install react-materialize
 - $ npm install react-popup
 
 ## Running the tests
@@ -24,7 +23,6 @@
 - back-end : Please run $ python server.py in Backend directory
 
 ## Deployment
-
 
 ## Built With
 
