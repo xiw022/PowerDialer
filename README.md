@@ -1,5 +1,6 @@
 # Power Dialer
 A web application that allows users to upload lists of patients and directly call out to enroll them
+The list of patients is prioritized by Machine Learning algorithm
 
 ## Getting Started
 Most up-to-date version is in "test" branch. Please clone from such branch.
