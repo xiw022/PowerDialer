@@ -22,6 +22,7 @@ Most up-to-date version is in "test" branch
 ## Running the tests
 
 - Please run $ npm start in front-end directory
+- Please run $ python server.py in back-end directory
 
 ### Front-end
 
